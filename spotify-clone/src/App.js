@@ -1,8 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Container, InputGroup, FormControl ,Button, Row, Card} from 'react-bootstrap';
+import {Container,Dropdown, InputGroup, FormControl ,Button, Row, Card} from 'react-bootstrap';
 import {useState, useEffect} from 'react';
+import{ Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 
 const Client_ID = "436f5cf1d4cf4baf97032eab63f67562";
 const Client_Secret = "ec6eafaac5d64c188c42c5b7537ba91b";
@@ -51,6 +52,18 @@ async function search(){
       backgroundColor: '#006699',
     }}>
       <Container>
+
+      <Sidebar>
+  <Menu>
+    <SubMenu label="Charts">
+      <MenuItem> Favorites</MenuItem>
+      <MenuItem></MenuItem>
+    </SubMenu>
+    <MenuItem> </MenuItem>
+    <MenuItem> Calendar </MenuItem>
+  </Menu>
+</Sidebar>;
+
         <InputGroup className="mb-3" size="lg" style ={{width:'50%', marginLeft:'auto', marginRight:'auto'}} >
           <FormControl 
         
@@ -64,7 +77,7 @@ async function search(){
           
           onChange={event=> setSearchInput(event.target.value)}
           />
-          <Button onClick={()=>{console.log("Hello")}} style={{backgroundColor:"black"}}>
+          <Button className='but' onClick={()=>{console.log("Hello")}} style={{backgroundColor:"black"}}>
             Search
           </Button>
         </InputGroup>
@@ -75,6 +88,7 @@ async function search(){
             <Card.Img src="#" />
             <Card.Body>
               <Card.Title>Album Name</Card.Title>
+              <Button onClick={()=>{console.log("hello")}}>Info</Button>
             </Card.Body>
           </Card>
           <Card>
