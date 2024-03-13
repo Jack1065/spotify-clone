@@ -5,8 +5,8 @@ import {Container,Dropdown, InputGroup, FormControl ,Button, Row, Card} from 're
 import {useState, useEffect} from 'react';
 import{ Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 
-const Client_ID = "436f5cf1d4cf4baf97032eab63f67562";
-const Client_Secret = "ec6eafaac5d64c188c42c5b7537ba91b";
+const Client_ID = "";
+const Client_Secret = "";
 
 
 function App() {
@@ -46,21 +46,23 @@ async function search(){
 }
 
   return (
+    
    
     <div className="App"
     style = {{
       backgroundColor: '#006699',
     }}>
+      <title>Spotify Clone</title>
       <Container>
 
       <Sidebar>
   <Menu>
-    <SubMenu label="Charts">
-      <MenuItem> Favorites</MenuItem>
-      <MenuItem></MenuItem>
+    <SubMenu label="All Music">
+      <MenuItem> Favoritees</MenuItem>
+      <MenuItem>Music</MenuItem>
     </SubMenu>
-    <MenuItem> </MenuItem>
-    <MenuItem> Calendar </MenuItem>
+    <MenuItem>Artists</MenuItem>
+    <MenuItem> New Music </MenuItem>
   </Menu>
 </Sidebar>;
 
