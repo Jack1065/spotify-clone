@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Container,Dropdown, InputGroup, FormControl ,Button, Row, Card, Form} from 'react-bootstrap';
 import {useState, useEffect} from 'react';
 import{ Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import {Login} from '../src/login';
+
 
 const Client_ID = "436f5cf1d4cf4baf97032eab63f67562";
 const Client_Secret = "ec6eafaac5d64c188c42c5b7537ba91b";
@@ -17,7 +17,7 @@ function App() {
   const[searchInput,setSearchInput] = useState("");
   const[accessToken, setAccessToken] = useState("");
   const[albums, setAlbums] = useState([]);
-  const [token, setToken] = useState();
+  
 /*
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -81,9 +81,7 @@ async function search(){
 
 
 
-if(!token) {
-  return <Login setToken={setToken} />
-}
+
 
   return (
     
