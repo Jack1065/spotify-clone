@@ -89,6 +89,7 @@ async function search(){
 
       style={{
         backgroundColor: '#232b2b',
+        height: '100vh',
       }}>
       <title>Spotify Clone</title>
       <h1 style={{ textAlign: 'center', fontSize: 80, color: '#90EE90', fontFamily: 'Kalam' }}>Spoti-Clone</h1>
@@ -107,12 +108,6 @@ async function search(){
       </Container>
       <Container>
     
-      <Form
-       action='http://localhost:80/inser.php'
-        method='post'
-       // onSubmit={(event) => handleSubmit(event)}
-      >
-
         <InputGroup className="mb-3" size="lg" style={{ width: '50%', marginLeft: 'auto', marginRight: 'auto' }}>
           <FormControl
 
@@ -130,7 +125,7 @@ async function search(){
             Search
           </Button>
         </InputGroup>
-      </Form>
+      
 
     </Container>
     <Container>
