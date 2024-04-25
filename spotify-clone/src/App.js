@@ -1,21 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Container,Dropdown, InputGroup, FormControl ,Button, Row, Card} from 'react-bootstrap';
+import {Container,Dropdown, InputGroup, FormControl ,Button, Row, Card, Form} from 'react-bootstrap';
 import {useState, useEffect} from 'react';
 import{ Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import {Login} from '../src/login';
 
-const Client_ID = "";
-const Client_Secret = "";
+const Client_ID = "436f5cf1d4cf4baf97032eab63f67562";
+const Client_Secret = "ec6eafaac5d64c188c42c5b7537ba91b";
+
+
 
 
 function App() {
+  
+
   const[searchInput,setSearchInput] = useState("");
-  const[acessToken, setAcessToken] = useState("");
+  const[accessToken, setAccessToken] = useState("");
+  const[albums, setAlbums] = useState([]);
+  const [token, setToken] = useState();
+/*
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = $(e.target);
+    $.ajax({
+        type: "POST",
+        url: form.attr("action"),
+        data: form.serialize(),
+        success(data) {
+            setResult(data);
+        },
+    });
+};
+*/
+
 
 useEffect(() => {
 //Spotify API Access
-  var auth = {
+  var authParameters = {
     method: 'POST',
     headers:{
       'Content-type': 'application/x-www-form-urlencoded'
@@ -23,97 +44,115 @@ useEffect(() => {
     body: 'grant_type=client_credentials&client_id='+Client_ID+'&client_secret='+Client_Secret
 
   }
- fetch('https://accounts.spotify.com/api/token', auth)
+ fetch('https://accounts.spotify.com/api/token', authParameters)
     .then(result => result.json())
-    .then(data=> console.log(data))
+    .then(data=> setAccessToken(data.access_token))
 
-}, []);
+}, [])
 
+
+
+//search
 async function search(){
-  console.log("Search for " + searchInput);
+  console.log("Search for " + searchInput);//artist
 
-  var artistParam={
+  var searchParam={
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' +acessToken
+      'Authorization': 'Bearer ' + accessToken
     }
   }
-  var artistID = await fetch('https://api.spotify.com/v1/search?q=', artistParam)
-    .then(result => result.json())
-    .then(data=> console.log(data))
+  var artistID = await fetch('https://api.spotify.com/v1/search?q='+ searchInput +'&type=artist', searchParam)
+    .then(response => response.json())
+    .then(data=>{return data.artists.items[0].id})
 
+
+    console.log("Artist ID is "+artistID);
+
+    var returnedAlbum = await fetch('https://api.spotify.com/v1/artists/'+artistID+'/albums'+'?include_groups=album&market=US&limit=50',searchParam)
+    .then(response => response.json())
+    .then(data=>{
+      console.log(data);
+      setAlbums(data.items);
+    
+    })
+}
+
+
+
+if(!token) {
+  return <Login setToken={setToken} />
 }
 
   return (
     
-   
     <div className="App"
-    style = {{
-      backgroundColor: '#006699',
-    }}>
+
+      style={{
+        backgroundColor: '#232b2b',
+      }}>
       <title>Spotify Clone</title>
+      <h1 style={{ textAlign: 'center', fontSize: 80, color: '#90EE90', fontFamily: 'Kalam' }}>Spoti-Clone</h1>
       <Container>
 
-      <Sidebar>
-  <Menu>
-    <SubMenu label="All Music">
-      <MenuItem> Favoritees</MenuItem>
-      <MenuItem>Music</MenuItem>
-    </SubMenu>
-    <MenuItem>Artists</MenuItem>
-    <MenuItem> New Music </MenuItem>
-  </Menu>
-</Sidebar>;
+        <Sidebar>
+          <Menu>
+            <SubMenu label="All Music">
+              <MenuItem> Favoritees</MenuItem>
+              <MenuItem>Music</MenuItem>
+            </SubMenu>
+            <MenuItem>Artists</MenuItem>
+            <MenuItem> New Music </MenuItem>
+          </Menu>
+        </Sidebar>;
+      </Container>
+      <Container>
+    
+      <Form
+       action='http://localhost:80/inser.php'
+        method='post'
+       // onSubmit={(event) => handleSubmit(event)}
+      >
 
-        <InputGroup className="mb-3" size="lg" style ={{width:'50%', marginLeft:'auto', marginRight:'auto'}} >
-          <FormControl 
-        
-          placeholder="Search Music"
-          type = "input"
-          onKeyPress ={event=> { 
-            if(event.key === "Enter"){
-              search(event.target.value);
-            }
-          }}
-          
-          onChange={event=> setSearchInput(event.target.value)}
-          />
-          <Button className='but' onClick={()=>{console.log("Hello")}} style={{backgroundColor:"black"}}>
+        <InputGroup className="mb-3" size="lg" style={{ width: '50%', marginLeft: 'auto', marginRight: 'auto' }}>
+          <FormControl
+
+            placeholder="Search Music"
+            type="input"
+            id='search'
+            onKeyPress={event => {
+              if (event.key === "Enter") {
+                search(event.target.value);
+              }
+            } }
+
+            onChange={event => setSearchInput(event.target.value)} />
+          <Button className='but' type='submit' onClick={() => { console.log("Hello"); } } style={{ backgroundColor: "black" }}>
             Search
           </Button>
         </InputGroup>
-        </Container>
-        <Container>
-          <Row className="mx-2 row row-cols-4">
-          <Card>
-            <Card.Img src="#" />
-            <Card.Body>
-              <Card.Title>Album Name</Card.Title>
-              <Button onClick={()=>{console.log("hello")}}>Info</Button>
-            </Card.Body>
-          </Card>
-          <Card>
-          <Card.Img src="#" />
-          <Card.Body>
-            <Card.Title>Album Name</Card.Title>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Img src="#" />
-          <Card.Body>
-            <Card.Title>Album Name</Card.Title>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Img src="#" />
-          <Card.Body>
-            <Card.Title>Album Name</Card.Title>
-          </Card.Body>
-        </Card>
-          </Row>
-        </Container>
-      </div>
+      </Form>
+
+    </Container>
+    <Container>
+        <Row className="mx-2 row row-cols-4">
+          {albums.map((album) => {
+            console.log(album);
+            return (
+              <Card style={{ padding: 30, backgroundColor: '#3b444b' }}>
+                <Card.Img src={album.images[0].url} />
+                <Card.Body>
+                  <Card.Title style={{ color: 'white', textAlign: 'center' }}>{album.name}</Card.Title>
+                  <Button style={{ alignContent: 'center' }}>Add to Liked</Button>
+                </Card.Body>
+              </Card>
+            );
+          })}
+        </Row>
+      </Container>
+  
+        </div>
   
   );
 }
