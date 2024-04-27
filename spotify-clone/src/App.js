@@ -77,6 +77,11 @@ async function search(){
       setAlbums(data.items);
     
     })
+
+  const response = await fetch(`http://localhost/src/inser.php?search=${searchInput}`);
+  const data = await response.json();
+  console.log(data);
+  setAlbums(data);
 }
 
 
