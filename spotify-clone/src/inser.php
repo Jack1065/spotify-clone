@@ -15,19 +15,19 @@ $sql = "";
 
 switch ($filter) {
     case 'artist':
-        $sql = "SELECT * FROM artist WHERE track_artist_name LIKE :search";
+        $sql = "SELECT track_name, track_artist FROM artist WHERE track_artist_name LIKE :search";
         break;
     case 'song':
-        $sql = "SELECT * FROM song WHERE track_name LIKE :search";
+        $sql = "SELECT track_name, track_artist FROM song WHERE track_name LIKE :search";
         break;
     case 'albums':
-        $sql = "SELECT * FROM albums WHERE track_album_name LIKE :search";
+        $sql = "SELECT track_name, track_artist FROM albums WHERE track_album_name LIKE :search";
         break;
     case 'genre':
-        $sql = "SELECT * FROM playlists WHERE playlist_name LIKE :search";
+        $sql = "SELECT track_name, track_artist FROM playlists WHERE playlist_name LIKE :search";
         break;
     default:
-        $sql = "SELECT * FROM song WHERE track_name LIKE :search";
+        $sql = "SELECT track_name, track_artist FROM song WHERE track_name LIKE :search";
 }
 
 $parametervalues = array(':search' => '%' . $search . '%');

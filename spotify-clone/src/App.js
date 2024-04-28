@@ -17,6 +17,7 @@ function App() {
   const[searchInput,setSearchInput] = useState("");
   const[accessToken, setAccessToken] = useState("");
   const[albums, setAlbums] = useState([]);
+  const[phpdata, setphpData] = useState("");
   
 /*
   const handleSubmit = (e) => {
@@ -78,10 +79,11 @@ async function search(){
     
     })
   //comment these out and the search bar will work for albums
-  const response = await fetch(`http://localhost:3000/src/inser.php?search=`+ searchInput);
-  const data = await response.json();
-  console.log(data);
-  setAlbums(data);
+  const response = await fetch(`http://localhost/github/spotify-clone/spotify-clone/src/inser.php?search=`+ searchInput);
+  const phpData = await response.text();
+  setphpData(phpData);
+  console.log(phpData);
+  
 }
 
 
@@ -149,7 +151,7 @@ async function search(){
           })}
         </Row>
       </Container>
-  
+
         </div>
   
   );
