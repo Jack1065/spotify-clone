@@ -1,6 +1,6 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Container,Dropdown, InputGroup, FormControl ,Button, Row, Card, Form} from 'react-bootstrap';
+import {Container,InputGroup, FormControl ,Button, Row, Card, Form} from 'react-bootstrap';
 import {useState, useEffect} from 'react';
 import{ Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 
@@ -105,11 +105,11 @@ async function search(){
         
           <Menu>
             <SubMenu label="All Music">
-              <MenuItem> Favoritees</MenuItem>
-              <MenuItem>Music</MenuItem>
+              <MenuItem name='mode' value='album' selected >Album Search</MenuItem>
+              <MenuItem name='mode' value='artist'>Artist Search</MenuItem>
+              <MenuItem name='mode' value='song'>Song Search</MenuItem>
+              <MenuItem name='mode' value='genre'>Genre Search</MenuItem>
             </SubMenu>
-            <MenuItem>Artists</MenuItem>
-            <MenuItem> New Music </MenuItem>
           </Menu>
         </Sidebar>;
       </Container>
