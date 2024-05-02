@@ -98,10 +98,11 @@ async function search(){
       }}>
       <title>Spotify Clone</title>
       <h1 style={{ textAlign: 'center', fontSize: 80, color: '#90EE90', fontFamily: 'Kalam' }}>Spoti-Clone</h1>
-      
+      <form action='http://localhost/inser.php' method='GET'>
       <Container>
-
+      
         <Sidebar>
+        
           <Menu>
             <SubMenu label="All Music">
               <MenuItem> Favoritees</MenuItem>
@@ -113,13 +114,13 @@ async function search(){
         </Sidebar>;
       </Container>
       <Container>
-      <form action='http://localhost/inser.php' method='GET'>
+      
         <InputGroup className="mb-3" size="lg" style={{ width: '50%', marginLeft: 'auto', marginRight: 'auto' }}>
           <FormControl
 
             placeholder="Search Music"
             type="input"
-            id='search'
+            name='search'
             onKeyPress={event => {
               if (event.key === "Enter") {
                 search(event.target.value);
@@ -132,7 +133,7 @@ async function search(){
           </Button>
         
         </InputGroup>
-        </form>
+        
 
     </Container>
     <Container>
@@ -151,7 +152,7 @@ async function search(){
           })}
         </Row>
       </Container>
-      
+      </form>
         </div>
   
   );
