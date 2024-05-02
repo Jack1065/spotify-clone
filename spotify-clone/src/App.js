@@ -17,7 +17,7 @@ function App() {
   const[searchInput,setSearchInput] = useState("");
   const[accessToken, setAccessToken] = useState("");
   const[albums, setAlbums] = useState([]);
-  const[phpdata, setphpData] = useState([]);
+  //const[phpdata, setphpData] = useState([]);
   
 /*
   const handleSubmit = (e) => {
@@ -74,16 +74,17 @@ async function search(){
     var returnedAlbum = await fetch('https://api.spotify.com/v1/artists/'+artistID+'/albums'+'?include_groups=album&market=US&limit=50',searchParam)
     .then(response => response.json())
     .then(data=>{
-      console.log(data);
+      //console.log(data);
       setAlbums(data.items);
     
     })
+    /*
   //comment these out and the search bar will work for albums
   const response = await fetch(`http://localhost/github/spotify-clone/spotify-clone/src/inser.php?search=`+ searchInput);
   const phpData = await response.json();
   setphpData(phpData);
   console.log(phpData);
-  
+  */
 }
 
 
@@ -97,6 +98,7 @@ async function search(){
       }}>
       <title>Spotify Clone</title>
       <h1 style={{ textAlign: 'center', fontSize: 80, color: '#90EE90', fontFamily: 'Kalam' }}>Spoti-Clone</h1>
+      
       <Container>
 
         <Sidebar>
@@ -111,7 +113,7 @@ async function search(){
         </Sidebar>;
       </Container>
       <Container>
-    
+      <form action='http://localhost/inser.php' method='GET'>
         <InputGroup className="mb-3" size="lg" style={{ width: '50%', marginLeft: 'auto', marginRight: 'auto' }}>
           <FormControl
 
@@ -128,14 +130,15 @@ async function search(){
           <Button className='but' type='submit' onClick={() => { console.log("Hello"); } } style={{ backgroundColor: "black" }}>
             Search
           </Button>
+        
         </InputGroup>
-      
+        </form>
 
     </Container>
     <Container>
         <Row className="mx-2 row row-cols-4">
           {albums.map((album) => {
-            console.log(album);
+            //console.log(album);
             return (
               <Card style={{ padding: 30, backgroundColor: '#3b444b' }}>
                 <Card.Img src={album.images[0].url} />
@@ -148,7 +151,7 @@ async function search(){
           })}
         </Row>
       </Container>
-
+      
         </div>
   
   );
